@@ -7,5 +7,6 @@ type Book struct {
 }
 
 func Buy(b Book) Book {
-	return Book{}
+	b.Copies--
+	return b
 }
