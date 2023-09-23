@@ -32,7 +32,7 @@ func (catalog Catalog) GetAllBooks() []Book {
 	return result
 }
 
-func GetBook(catalog map[int]Book, Bookid int) (Book, error) {
+func (catalog Catalog) GetBook(Bookid int) (Book, error) {
 	b, ok := catalog[Bookid]
 	if !ok {
 		return Book{}, fmt.Errorf("ID %d doesn't exist", Bookid)
