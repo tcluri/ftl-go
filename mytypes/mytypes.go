@@ -30,3 +30,7 @@ type StringUppercaser struct {
 func (su StringUppercaser) ToUpper() string {
 	return strings.ToUpper(su.Contents.String())
 }
+
+func Double(i *int) {
+	*i *= 2
+}
