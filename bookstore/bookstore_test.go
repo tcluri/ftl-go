@@ -123,3 +123,59 @@ func TestNetPriceCents(t *testing.T) {
 		t.Errorf("want %d got %d", want, got)
 	}
 }
+
+func TestSetPriceCents(t *testing.T) {
+	t.Parallel()
+	book := bookstore.Book{
+		Title:      "For the Love of Go",
+		PriceCents: 4000,
+	}
+	want := 3000
+	err := book.SetPriceCents(want)
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := book.PriceCents
+	if want != got {
+		t.Errorf("Set new price of book: want %d, got %d", want, got)
+	}
+}
+
+func TestSetPriceCentsInvalid(t *testing.T) {
+	t.Parallel()
+	book := bookstore.Book{
+		Title:      "For the Love of Go",
+		PriceCents: 4000,
+	}
+	err := book.SetPriceCents(-1)
+	if err == nil {
+		t.Fatal("want error setting invalid price -1, got nil")
+	}
+}
+
+func TestSetCategory(t *testing.T) {
+	t.Parallel()
+	b := bookstore.Book{
+		Title: "For the Love of Go",
+	}
+	want := "Autobiography"
+	err := b.SetCategory(want)
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := b.Category()
+	if want != got {
+		t.Errorf("want category: %q, got %q", want, got)
+	}
+}
+
+func TestSetCategoryInvalid(t *testing.T) {
+	t.Parallel()
+	b := bookstore.Book{
+		Title: "For the Love of Go",
+	}
+	err := b.SetCategory("bogus")
+	if err == nil {
+		t.Fatal("want error for invalid category, got nil")
+	}
+}
