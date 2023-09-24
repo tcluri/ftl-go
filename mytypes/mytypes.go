@@ -31,6 +31,6 @@ func (su StringUppercaser) ToUpper() string {
 	return strings.ToUpper(su.Contents.String())
 }
 
-func Double(i *int) {
+func (i *MyInt) Double() {
 	*i *= 2
 }
