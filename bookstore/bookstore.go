@@ -5,6 +5,20 @@ import (
 	"fmt"
 )
 
+type Category int
+
+const (
+	CategoryAutobiography Category = iota
+	CategoryLargePrintRomance
+	CategoryParticlePhysics
+)
+
+var validCategory = map[Category]bool{
+	CategoryAutobiography:     true,
+	CategoryLargePrintRomance: true,
+	CategoryParticlePhysics:   true,
+}
+
 type Book struct {
 	Title           string
 	Author          string
@@ -12,7 +26,7 @@ type Book struct {
 	ID              int
 	PriceCents      int
 	DiscountPercent int
-	category        string
+	category        Category
 }
 
 type Catalog map[int]Book
@@ -54,14 +68,14 @@ func (b *Book) SetPriceCents(price int) error {
 	return nil
 }
 
-func (b Book) Category() string {
+func (b Book) Category() Category {
 	return b.category
 }
 
-func (b *Book) SetCategory(c string) error {
-	if c != "Autobiography" {
-		return fmt.Errorf("unknown category %q", c)
+func (b *Book) SetCategory(category Category) error {
+	if !validCategory[category] {
+		return fmt.Errorf("unknown category %v", category)
 	}
-	b.category = c
+	b.category = category
 	return nil
 }
